@@ -10,6 +10,9 @@ cc.Class({
         cc.director.loadScene(this.nextScene.name);
     },
     // LIFE-CYCLE CALLBACKS:
+    onLoad () {
+       
+    },
 
     start () {
 

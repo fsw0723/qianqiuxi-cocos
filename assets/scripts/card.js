@@ -15,7 +15,7 @@ cc.Class({
     loadCard: function(cardName) {
         let image = this.image;
 
-        cc.loader.load({url: `http://qian-qiu-xi.herokuapp.com/images/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
+        cc.loader.load({url: `https://qian-qiu-xi.herokuapp.com/images/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
             if(err){
                 cc.error(err);
             } else{
