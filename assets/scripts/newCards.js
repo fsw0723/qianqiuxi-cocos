@@ -1,4 +1,5 @@
 const ws = require('./utils/webSocket');
+const constants = require('./Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -27,9 +28,10 @@ cc.Class({
         let context = this;
         ws.onmessage = function (event) {
             console.log('---on message', event.data)
-            if(event.data.startsWith('InitCards')) {
+            let data = JSON.parse(event.data);
+            if(data.type === constants.events.INIT_CARDS) {
                 console.log('---init---');
-                context.initCards(event.data.split(':')[1].trim().split(','));
+                context.initCards(data.initialCards);
                 
             }
         };

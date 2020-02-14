@@ -1,5 +1,6 @@
 const CardModel = require('CardModel');
 const ws = require('./utils/webSocket');
+const constants = require('./Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -17,7 +18,9 @@ cc.Class({
     onLoad () {
         this.cardsLeft.push(new CardModel('ar2'));
 
-        ws.send("InitCards");
+        ws.send(JSON.stringify({
+            type: constants.events.INIT_CARDS
+        }));
     },
 
     start () {

@@ -6,7 +6,6 @@ cc.Class({
     },
 
     onClickButton() {
-        console.log('click button');
         cc.director.loadScene(this.nextScene.name);
     },
     // LIFE-CYCLE CALLBACKS:

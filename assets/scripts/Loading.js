@@ -1,4 +1,5 @@
 const ws = require('./utils/webSocket');
+const constants = require('./Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -13,8 +14,17 @@ cc.Class({
         let context = this;
         ws.onopen = function (event) {
             console.log("Send Text WS was opened.");
-            cc.director.loadScene(context.nextScene.name);
         };
+
+        ws.onmessage = function (event) {
+            console.log("response text msg: " + event.data);
+            let data = JSON.parse(event.data);
+            if(data.type === constants.events.CREATE_PLAYER_ID) {
+                window.id = data.id;
+                cc.director.loadScene(context.nextScene.name);
+            }
+        };
+
     },
 
     start () {

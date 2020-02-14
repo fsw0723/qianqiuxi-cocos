@@ -1,3 +1,5 @@
+const remoteUrl = require('./Constants').remoteUrl;
+
 let ws;
 
 const initializeWs = function() {
@@ -5,10 +7,8 @@ const initializeWs = function() {
 	if(ws) {
 		return ws;
 	}
-	ws = new WebSocket("wss://qian-qiu-xi.herokuapp.com");
-	ws.onmessage = function (event) {
-	    console.log("response text msg: " + event.data);
-	};
+	ws = new WebSocket(`ws://${remoteUrl}`);
+
 	ws.onerror = function (event) {
 	    console.log("Send Text fired an error");
 	};
