@@ -25,18 +25,7 @@ cc.Class({
     },
 
     start: function() {
-        let context = this;
-        ws.onmessage = function (event) {
-            console.log('---on message', event.data)
-            let data = JSON.parse(event.data);
-            if(data.type === constants.events.INIT_CARDS) {
-                console.log('---init---');
-                context.initCards(data.initialCards);
-                
-            }
-        };
-       
-        
+
     },
 
     // update (dt) {},

@@ -5,5 +5,6 @@ module.exports.remoteUrl = 'qian-qiu-xi.herokuapp.com';
 module.exports.events = {
 	CREATE_PLAYER_ID: 'CREATE_PLAYER_ID',
 
-    INIT_CARDS: 'INIT_CARDS'
+    PAIRING: 'PAIRING',
+    START: 'START'
 }

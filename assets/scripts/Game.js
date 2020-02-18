@@ -10,21 +10,33 @@ cc.Class({
         playerA: {
             default: null,
             type: cc.Node
+        },
+        newCards: {
+            default: null,
+            type: cc.Node
         }
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.cardsLeft.push(new CardModel('ar2'));
 
-        ws.send(JSON.stringify({
-            type: constants.events.INIT_CARDS
-        }));
     },
 
     start () {
+        let context = this;
 
+        ws.send(JSON.stringify({
+            type: constants.events.PAIRING
+        }));
+
+        ws.onmessage = function (event) {
+            let data = JSON.parse(event.data);
+            if(data.type === constants.events.START) {
+                context.node.getChildByName('label').opacity = 0;
+                context.newCards.getComponent('newCards').initCards(data.deck);
+            }
+        };
     },
 
     // update (dt) {},
