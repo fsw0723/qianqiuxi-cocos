@@ -79,18 +79,15 @@
       },
       {
         "__id__": 9
-      },
-      {
-        "__id__": 19
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 21
+        "__id__": 26
       },
       {
-        "__id__": 22
+        "__id__": 27
       }
     ],
     "_prefab": null,
@@ -348,7 +345,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -435,6 +432,15 @@
     "_children": [
       {
         "__id__": 10
+      },
+      {
+        "__id__": 20
+      },
+      {
+        "__id__": 22
+      },
+      {
+        "__id__": 24
       }
     ],
     "_active": true,
@@ -499,13 +505,13 @@
         "__id__": 11
       },
       {
-        "__id__": 13
+        "__id__": 14
       },
       {
-        "__id__": 15
+        "__id__": 16
       },
       {
-        "__id__": 17
+        "__id__": 18
       }
     ],
     "_active": true,
@@ -560,7 +566,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "back",
+    "_name": "cardBack",
     "_objFlags": 0,
     "_parent": {
       "__id__": 10
@@ -572,7 +578,9 @@
         "__id__": 12
       }
     ],
-    "_prefab": null,
+    "_prefab": {
+      "__id__": 13
+    },
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -653,6 +661,17 @@
     "_id": "b0tA2LljpEb43LbOnfmUx6"
   },
   {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 11
+    },
+    "asset": {
+      "__uuid__": "4a5057b0-fbc1-4b3b-a3ae-ab3098ff5745"
+    },
+    "fileId": "947zeD2r9JfbwwmCvPOtER",
+    "sync": false
+  },
+  {
     "__type__": "cc.Node",
     "_name": "back",
     "_objFlags": 0,
@@ -663,7 +682,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 14
+        "__id__": 15
       }
     ],
     "_prefab": null,
@@ -719,7 +738,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 13
+      "__id__": 14
     },
     "_enabled": true,
     "_materials": [
@@ -757,7 +776,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 17
       }
     ],
     "_prefab": null,
@@ -813,7 +832,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 15
+      "__id__": 16
     },
     "_enabled": true,
     "_materials": [
@@ -851,7 +870,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 18
+        "__id__": 19
       }
     ],
     "_prefab": null,
@@ -907,7 +926,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 17
+      "__id__": 18
     },
     "_enabled": true,
     "_materials": [
@@ -939,13 +958,13 @@
     "_name": "new cards",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 2
+      "__id__": 9
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 20
+        "__id__": 21
       }
     ],
     "_prefab": null,
@@ -1001,13 +1020,163 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 19
+      "__id__": 20
     },
     "_enabled": true,
     "cardPrefab": {
       "__uuid__": "aa9480e9-2de1-43a6-974e-a36f1b10bb04"
     },
     "_id": "cds4HgwnlJoLhsUV3ovWXe"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "my cards",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 9
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 23
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 500,
+      "height": 200
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        -210.855,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "1enMak9DRBjKI2SAUDj1aT"
+  },
+  {
+    "__type__": "c12aad9vrxHS79lzqN8AKgd",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 22
+    },
+    "_enabled": true,
+    "cardPrefab": {
+      "__uuid__": "aa9480e9-2de1-43a6-974e-a36f1b10bb04"
+    },
+    "_id": "3aOE0+vrZN8LZ/82EZ8hu2"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "opponent cards",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 9
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 25
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 0,
+      "height": 0
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        -261.316,
+        191.032,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "69vNT///NOwpmN7UMHGYBN"
+  },
+  {
+    "__type__": "b49e6w3w49CqKAhxnpUfT16",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 24
+    },
+    "_enabled": true,
+    "cardBackPrefab": {
+      "__uuid__": "4a5057b0-fbc1-4b3b-a3ae-ab3098ff5745"
+    },
+    "_id": "ebeuRsx8FOqZJydF5KEvxB"
   },
   {
     "__type__": "cc.Canvas",
@@ -1037,7 +1206,13 @@
     "cardsLeft": [],
     "playerA": null,
     "newCards": {
-      "__id__": 19
+      "__id__": 20
+    },
+    "myCards": {
+      "__id__": 22
+    },
+    "opponentCards": {
+      "__id__": 24
     },
     "_id": "9c3VhM8Y5B7ZOUlJWdNK2C"
   }

@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "card",
+    "_name": "back",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -21,13 +21,10 @@
     "_components": [
       {
         "__id__": 2
-      },
-      {
-        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 3
     },
     "_opacity": 255,
     "_color": {
@@ -51,16 +48,16 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -428.919,
-        0,
+        380.741,
+        -19.826,
         0,
         0,
         0,
         0,
         1,
-        0.3,
-        0.3,
-        0.3
+        0.4,
+        0.4,
+        1
       ]
     },
     "_eulerAngles": {
@@ -109,24 +106,14 @@
     "_id": ""
   },
   {
-    "__type__": "e5653Vfp9pESplcrIWxZwh2",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_id": ""
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "aa9480e9-2de1-43a6-974e-a36f1b10bb04"
+      "__id__": 0
     },
-    "fileId": "1dew8MItROcYkna7gHHm06",
+    "fileId": "947zeD2r9JfbwwmCvPOtER",
     "sync": false
   }
 ]

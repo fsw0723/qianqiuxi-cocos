@@ -2,16 +2,12 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-       cardPrefab:{
+        cardPrefab:{
             default: null,
             type: cc.Prefab
-       }
+        }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-      
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
@@ -20,8 +16,11 @@ cc.Class({
             card.parent = this.node;
         }
     },
+    // LIFE-CYCLE CALLBACKS:
 
-    start: function() {
+    // onLoad () {},
+
+    start () {
 
     },
 
