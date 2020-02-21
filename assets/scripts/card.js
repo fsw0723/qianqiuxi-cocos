@@ -2,6 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        selected: false
     },
 
     loadCard: function(cardName) {
@@ -15,16 +16,30 @@ cc.Class({
                 sp.spriteFrame = spf;
             }
         });
-
     },
 
-    onTouchStart: function() {
+    selectCard() {
         this.node.y += 30;
+        this.selected = true;
+        this.node.dispatchEvent( new cc.Event.EventCustom('select-card', true) );
+    },
+
+    unselectCard() {
+        this.node.y -= 30;
+        this.selected = false;
+    },
+
+    onTouchStart: function(event) {
+        if(!this.selected) {
+            this.selectCard();
+        } else {
+            this.unselectCard();
+        }
+        event.stopPropagation()
     },
 
     onLoad: function() {
         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, this.onTouchStart, this);
     },
 
     start () {
@@ -32,4 +47,7 @@ cc.Class({
     },
 
     // update (dt) {},
+    onDestroy() {
+        this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+    }
 });

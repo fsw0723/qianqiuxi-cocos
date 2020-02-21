@@ -8,10 +8,9 @@ cc.Class({
        }
     },
 
+
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-      
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
@@ -23,7 +22,6 @@ cc.Class({
 
     start: function() {
 
-    },
+    }
 
-    // update (dt) {},
 });

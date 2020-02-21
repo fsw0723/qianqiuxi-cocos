@@ -24,10 +24,19 @@ cc.Class({
         }
     },
 
+    onSelectCard(event) {
+        this.myCards.getComponent('MyCards').cards.forEach((card) => {
+            if(card.getComponent('card').selected && card._id !== event.target._id) {
+                card.getComponent('card').unselectCard();
+            }
+        })
+    },
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.node.getChildByName('label').opacity = 255;
+        this.node.on('select-card', this.onSelectCard, this);
     },
 
     start () {
@@ -67,4 +76,8 @@ cc.Class({
     },
 
     // update (dt) {},
+
+    onDestroy() {
+        this.node.off('select-card', this.onSelectCard, this);
+    }
 });
