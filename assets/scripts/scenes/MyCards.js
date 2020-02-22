@@ -15,6 +15,7 @@ cc.Class({
             card.x = -300+70*i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;
+            card.getComponent('card').isSelectable = true;
             this.cards.push(card);
         }
     },

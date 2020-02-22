@@ -2,7 +2,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        selected: false
+        selected: false,
+        isSelectable: false,
+        cardName: ''
     },
 
     loadCard: function(cardName) {
@@ -14,19 +16,23 @@ cc.Class({
                 let spf = new cc.SpriteFrame(tex);
                 let sp = context.getComponent(cc.Sprite);
                 sp.spriteFrame = spf;
+                this.cardName = cardName;
             }
         });
     },
 
     selectCard() {
-        this.node.y += 30;
-        this.selected = true;
-        this.node.dispatchEvent( new cc.Event.EventCustom('select-card', true) );
+        if(this.isSelectable) {
+            this.node.y += 30;
+            this.selected = true;
+            this.node.dispatchEvent( new cc.Event.EventCustom('select-card', true) );
+        }
     },
 
     unselectCard() {
         this.node.y -= 30;
         this.selected = false;
+        this.node.dispatchEvent( new cc.Event.EventCustom('unselect-card', true) );
     },
 
     onTouchStart: function(event) {

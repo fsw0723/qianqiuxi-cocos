@@ -5,7 +5,8 @@ cc.Class({
        cardPrefab:{
             default: null,
             type: cc.Prefab
-       }
+       },
+       cards: []
     },
 
 
@@ -17,6 +18,7 @@ cc.Class({
             card.x = -300+70*i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;
+            this.cards.push(card);
         }
     },
 

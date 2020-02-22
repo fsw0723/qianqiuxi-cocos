@@ -6,10 +6,6 @@ cc.Class({
 
     properties: {
         cardsLeft: [],
-        playerA: {
-            default: null,
-            type: cc.Node
-        },
         newCards: {
             default: null,
             type: cc.Node
@@ -25,11 +21,27 @@ cc.Class({
     },
 
     onSelectCard(event) {
+        let selectedCardName = event.target.getComponent('card').cardName;
         this.myCards.getComponent('MyCards').cards.forEach((card) => {
             if(card.getComponent('card').selected && card._id !== event.target._id) {
                 card.getComponent('card').unselectCard();
             }
-        })
+        });
+
+        this.newCards.getComponent('newCards').cards.forEach((card) => {
+            let cardName = card.getComponent('card').cardName;
+            if(constants.cardNames[cardName] === constants.cardNames[selectedCardName]) {
+                card.getComponent('card').isSelectable = true;
+            } else {
+                card.getComponent('card').isSelectable = false;
+            }
+        });
+    },
+
+    onUnSelectCard() {
+        this.newCards.getComponent('newCards').cards.forEach((card) => {
+            card.getComponent('card').isSelectable = false;
+        });
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -37,6 +49,7 @@ cc.Class({
     onLoad () {
         this.node.getChildByName('label').opacity = 255;
         this.node.on('select-card', this.onSelectCard, this);
+        this.node.on('unselect-card', this.onUnSelectCard, this);
     },
 
     start () {
@@ -54,11 +67,6 @@ cc.Class({
         context.myCards.getComponent('MyCards').initCards(data.cards);
         context.opponentCards.getComponent('OpponentCards').initCards();
 
-//        this.myCards.children.forEach((node, i) => {
-//            node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-//              console.log('Mouse down1', i);
-//            }, this);
-//        });
 //        ws.send(JSON.stringify({
 //            type: constants.events.PAIRING
 //        }));
@@ -79,5 +87,6 @@ cc.Class({
 
     onDestroy() {
         this.node.off('select-card', this.onSelectCard, this);
+        this.node.off('unselect-card', this.onUnSelectCard, this);
     }
 });
