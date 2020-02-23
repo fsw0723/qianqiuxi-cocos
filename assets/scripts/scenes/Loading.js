@@ -1,5 +1,6 @@
-const ws = require('../utils/webSocket');
+const ws = require('../utils/websocket');
 const constants = require('../Constants');
+
 
 cc.Class({
     extends: cc.Component,

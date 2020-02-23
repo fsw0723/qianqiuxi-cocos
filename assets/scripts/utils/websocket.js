@@ -1,9 +1,8 @@
 const remoteUrl = require('../Constants').remoteUrl;
 
 let ws;
-
 const initializeWs = function() {
-	console.log('WebSocket...')
+	console.log('WebSocket...', new Date())
 	if(ws) {
 		return ws;
 	}
@@ -13,7 +12,7 @@ const initializeWs = function() {
 	    console.log("Send Text fired an error");
 	};
 	ws.onclose = function (event) {
-	    console.log("WebSocket instance closed.");
+	    console.log("WebSocket instance closed.", new Date());
 	};
 
 	return ws;
@@ -21,4 +20,4 @@ const initializeWs = function() {
 
 initializeWs();
 
-export default ws;
+module.exports = ws;

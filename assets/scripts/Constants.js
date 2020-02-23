@@ -6,7 +6,8 @@ module.exports.events = {
 	CREATE_PLAYER_ID: 'CREATE_PLAYER_ID',
 
     PAIRING: 'PAIRING',
-    START: 'START'
+    START: 'START',
+    SELECT_CARD: 'SELECT_CARD'
 };
 
 module.exports.cardNames = {
