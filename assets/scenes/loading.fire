@@ -57,7 +57,8 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "b3BHHJPBRHQbQ3KxAH3h8x"
+    "autoReleaseAssets": false,
+    "_id": "b532224b-4936-4039-8a67-19d571b9dfdb"
   },
   {
     "__type__": "cc.Node",
@@ -86,11 +87,11 @@
         "__id__": 12
       },
       {
-        "__id__": 14
+        "__id__": 13
       }
     ],
     "_prefab": {
-      "__id__": 13
+      "__id__": 14
     },
     "_opacity": 255,
     "_color": {
@@ -121,8 +122,8 @@
         0,
         0,
         1,
-        0.76,
-        0.864,
+        1,
+        1,
         1
       ]
     },
@@ -275,8 +276,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 2000,
-      "height": 1125
+      "width": 960,
+      "height": 640
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -294,8 +295,8 @@
         0,
         0,
         1,
-        0.657,
-        0.688,
+        1,
+        1,
         1
       ]
     },
@@ -331,7 +332,7 @@
       "__uuid__": "f18e9aa2-6524-4a23-b525-54f9e7250983"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -438,6 +439,8 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -476,15 +479,6 @@
     "_id": "90Oc8H0rBBnJ87UzKEOu9Q"
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 2
-    },
-    "asset": null,
-    "fileId": "61Oq384cVLyZqgajcYHgfN",
-    "sync": false
-  },
-  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -508,6 +502,16 @@
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalHeight": 0,
+    "_id": "dfHVNpVMZFWqErs3Mo+tm7"
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 2
+    },
+    "asset": null,
+    "fileId": "61Oq384cVLyZqgajcYHgfN",
+    "sync": false
   }
 ]
