@@ -51,6 +51,8 @@ cc.Class({
     onCardSelected() {
         this.newCards.getComponent('newCards').moveSelectedCard(this.selectedDeck);
         this.myCards.getComponent('MyCards').moveSelectedCard(this.selectedDeck);
+//        this.newCards.getComponent('newCards').addCardToLast('blts');
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -64,36 +66,39 @@ cc.Class({
 
     start () {
         let context = this;
-        let data = {
-            "type": "START",
-            "gameId": "f810d64e-56d1-4909-af44-c4870dcc1252",
-            "opponent": "ee310f39-cd46-4313-8cfc-530c36b7de86",
-            "deck": ["sy", "oysg", "yqs", "zm", "qysnp", "wry", "thg", "bcg"],
-            "cards": ["pl", "fqx", "zrl", "xyz", "blts", "hy", "ttzq", "jsh"]
-        }
-
-        context.node.getChildByName('label').opacity = 0;
-        context.newCards.getComponent('newCards').initCards(data.deck);
-        context.myCards.getComponent('MyCards').initCards(data.cards);
-        context.opponentCards.getComponent('OpponentCards').initCards();
-
-//        ws.send(JSON.stringify({
-//            type: constants.events.PAIRING
-//        }));
+//        let data = {
+//            "type": "START",
+//            "gameId": "f810d64e-56d1-4909-af44-c4870dcc1252",
+//            "opponent": "ee310f39-cd46-4313-8cfc-530c36b7de86",
+//            "deck": ["sy", "oysg", "yqs", "zm", "qysnp", "wry", "thg", "bcg", 'hyue', 'xl'],
+//            "cards": ["pl", "fqx", "zrl", "xyz", "blts", "hy", "ttzq", "jsh"]
+//        }
 //
-//        ws.onmessage = function (event) {
-//            let data = JSON.parse(event.data);
-//            console.log('---data---', data);
-//            if(data.type === constants.events.START) {
-//                context.node.getChildByName('label').opacity = 0;
-//                context.newCards.getComponent('newCards').initCards(data.deck);
-//                context.myCards.getComponent('MyCards').initCards(data.cards);
-//                context.opponentCards.getComponent('OpponentCards').initCards();
-//            }
-//
-//            if(data.type === constants.events.CARD_SELECTED) {
-//            }
-//        };
+//        context.node.getChildByName('label').opacity = 0;
+//        context.newCards.getComponent('newCards').initCards(data.deck);
+//        context.myCards.getComponent('MyCards').initCards(data.cards);
+//        context.opponentCards.getComponent('OpponentCards').initCards();
+
+        ws.send(JSON.stringify({
+            type: constants.events.PAIRING
+        }));
+
+        ws.onmessage = function (event) {
+            let data = JSON.parse(event.data);
+            console.log('---data---', data);
+            if(data.type === constants.events.START) {
+                context.node.getChildByName('label').opacity = 0;
+                context.newCards.getComponent('newCards').initCards(data.deck);
+                context.myCards.getComponent('MyCards').initCards(data.cards);
+                context.opponentCards.getComponent('OpponentCards').initCards();
+            }
+
+            if(data.type === constants.events.CARD_SELECTED) {
+                console.log('card selected');
+                context.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
+                context.node.getChildByName('game').getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
+            }
+        };
     },
 
     // update (dt) {},

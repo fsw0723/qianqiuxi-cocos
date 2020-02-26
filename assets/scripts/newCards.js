@@ -22,8 +22,10 @@ cc.Class({
             let cardNode = this.node.children[i];
             if(cardNode._id === window.selectedDeckCard._id) {
                 toMove = true;
+                continue;
             }
             if(toMove) {
+                cardNode.zIndex++;
                 const cardAction = cc.moveBy(0.2, -50, 0);
                 cardNode.runAction(cardAction);
             }
@@ -32,6 +34,15 @@ cc.Class({
         //TODO: Not hard code position
         const action = cc.sequence(cc.moveTo(0.5, cc.v2(-400, -210)), finished);
         window.selectedDeckCard.runAction(action);
+    },
+
+    addCardToLast: function(cardName) {
+        let i = 9;
+        let card = cc.instantiate(this.cardPrefab);
+        card.x = -300+50*i;
+        card.zIndex = 100-i;
+        card.getComponent('card').loadCard(cardName);
+        card.parent = this.node;
     },
 
 

@@ -35,6 +35,7 @@ cc.Class({
             let cardNode = this.node.children[i];
             if(cardNode._id === window.selectedOwnCard._id) {
                 toMove = true;
+                continue;
             }
             if(toMove) {
                 const cardAction = cc.moveBy(0.2, -50, 0);

@@ -24,40 +24,14 @@ cc.Class({
         });
     },
 
-    handleMoveCard() {
-        let selectedDeck= this.node.parent.parent.getChildByName('selected deck');
-        let worldPosition = this.node.convertToWorldSpaceAR(selectedDeck.getPosition());
-        // 执行动作
-        var finished1 = cc.callFunc(function(target) {
-            this.node.removeFromParent();
-            this.node.x = 0;
-            this.node.y = 0;
-            this.node.parent = selectedDeck;
-        }, this);
-
-        var finished2 = cc.callFunc(function(target) {
-            window.selectedOwnCard.removeFromParent();
-            window.selectedOwnCard.x = 0;
-            window.selectedOwnCard.y = 0;
-            window.selectedOwnCard.parent = selectedDeck;
-        }, this);
-
-        const action1 = cc.sequence(cc.moveTo(0.5, this.node.convertToNodeSpaceAR(worldPosition)), finished1);
-        this.node.runAction(action1);
-        const action2 = cc.sequence(cc.moveTo(0.5, cc.v2(-400, 0)), finished2);
-        window.selectedOwnCard.runAction(action2);
-    },
-
     handleCardSelected() {
-    //                ws.send(JSON.stringify({
-    //                    type: Constants.events.SELECT_CARD,
-    //                    playerId: window.id,
-    //                    selectedCardFromDeck: this.cardName,
-    //                    selectedOwnCard: window.selectedOwnCard.cardName
-    //                }));
-//        this.handleMoveCard();
+        ws.send(JSON.stringify({
+            type: Constants.events.SELECT_CARD,
+            playerId: window.id,
+            selectedCardFromDeck: this.cardName,
+            selectedOwnCard: window.selectedOwnCard.cardName
+        }));
         this.node.dispatchEvent( new cc.Event.EventCustom('card-selected', true) );
-
     },
 
     selectCard() {
