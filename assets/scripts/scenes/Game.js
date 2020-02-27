@@ -62,10 +62,48 @@ cc.Class({
     },
 
     handleGameAction(data) {
+        let context = this;
         if(data.type === constants.events.CARD_SELECTED) {
             console.log('card selected');
             this.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
             this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
+
+            if(data.newPairs.length) {
+
+                let index = 0;
+                let pairNode = context.node.getChildByName('pair');
+
+                const showPairOverlay = function(index) {
+                    let pair = data.newPairs[index];
+                    pairNode.opacity = 255;
+                    pair.cards.forEach((cardName, i) => {
+                        pairNode.getComponent('Pair').loadPairImage(cardName, i);
+                    });
+                    pairNode.getComponent('Pair').loadPairText(pair.name, pair.points);
+                    setTimeout(function() {
+                        pairNode.opacity = 0;
+                        pairNode.getChildByName('cards').children.forEach((card) => {
+                            card.destroy();
+                        });
+                    }, 1700);
+                };
+
+                index++;
+
+                 this.scheduleOnce(function() {
+                     // 这里的 this 指向 component
+                     showPairOverlay(0);
+                 }, 0);
+
+                if(data.newPairs.length > 1) {
+                    this.schedule(function() {
+                        showPairOverlay(index);
+                        index++;
+                    }, 2, data.newPairs.length-2, 0);
+                }
+
+
+            }
         }
     },
 
