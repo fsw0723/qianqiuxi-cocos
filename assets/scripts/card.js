@@ -29,7 +29,7 @@ cc.Class({
             type: Constants.events.SELECT_CARD,
             playerId: window.id,
             selectedCardFromDeck: this.cardName,
-            selectedOwnCard: window.selectedOwnCard.cardName
+            selectedOwnCard: window.selectedOwnCard.getComponent('card').cardName
         }));
         this.node.dispatchEvent( new cc.Event.EventCustom('card-selected', true) );
     },

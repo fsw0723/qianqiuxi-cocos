@@ -11,7 +11,7 @@ cc.Class({
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
-            card.x = -300+50*i;
+            card.x = -250+50*i;
             card.zIndex = 100-i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;

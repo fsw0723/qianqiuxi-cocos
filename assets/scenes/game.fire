@@ -1502,7 +1502,7 @@
     "_id": "45jc9zCctFybi90g+VFwdb"
   },
   {
-    "__type__": "a86aco55HxKDan9Hh+0ColS",
+    "__type__": "ca084i44hdKCoD8xoMth3MR",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1522,6 +1522,9 @@
     "selectedDeck": {
       "__id__": 26
     },
-    "_id": "9efCEw6a1M6IGqs7Q+gAie"
+    "game": {
+      "__id__": 9
+    },
+    "_id": "1brEOLkTVB96coYZGztHRk"
   }
 ]
