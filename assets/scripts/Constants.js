@@ -8,7 +8,8 @@ module.exports.events = {
     PAIRING: 'PAIRING',
     START: 'START',
     SELECT_CARD: 'SELECT_CARD',
-    CARD_SELECTED: 'CARD_SELECTED'
+    CARD_SELECTED: 'CARD_SELECTED',
+    OPPONENT_CARD_SELECTED: 'OPPONENT_CARD_SELECTED'
 };
 
 module.exports.cardNames = {

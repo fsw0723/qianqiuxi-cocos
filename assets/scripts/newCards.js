@@ -8,13 +8,14 @@ cc.Class({
        }
     },
 
-    moveSelectedCard(selectedDeck) {
+    moveSelectedCard(selectedDeck, callback, isOwnCard) {
         const finished = cc.callFunc(function(target) {
             window.selectedDeckCard.removeFromParent();
             window.selectedDeckCard.x = 0;
             window.selectedDeckCard.y = 0;
             window.selectedDeckCard.zIndex = selectedDeck.children.length*2 + 1;
             window.selectedDeckCard.parent = selectedDeck;
+            callback();
         }, this);
 
         let toMove = false;
@@ -32,7 +33,12 @@ cc.Class({
         }
 
         //TODO: Not hard code position
-        const action = cc.sequence(cc.moveTo(0.5, cc.v2(-400, -210)), finished);
+        let action;
+        if(isOwnCard) {
+            action = cc.sequence(cc.moveTo(0.5, cc.v2(-400, -210)), finished);
+        } else {
+            action = cc.sequence(cc.moveTo(0.5, cc.v2(-400, 210)), finished);
+        }
         window.selectedDeckCard.runAction(action);
     },
 

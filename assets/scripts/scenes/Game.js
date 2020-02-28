@@ -21,6 +21,10 @@ cc.Class({
         selectedDeck: {
             default: null,
             type: cc.Node
+        },
+        opponentSelectedDeck: {
+            default: null,
+            type: cc.Node
         }
     },
 
@@ -49,7 +53,7 @@ cc.Class({
     },
 
     onCardSelected() {
-        this.newCards.getComponent('newCards').moveSelectedCard(this.selectedDeck);
+        this.newCards.getComponent('newCards').moveSelectedCard(this.selectedDeck, null, true);
         this.myCards.getComponent('MyCards').moveSelectedCard(this.selectedDeck);
 //        this.newCards.getComponent('newCards').addCardToLast('blts');
 
@@ -61,49 +65,72 @@ cc.Class({
         this.opponentCards.getComponent('OpponentCards').initCards();
     },
 
-    handleGameAction(data) {
-        let context = this;
-        if(data.type === constants.events.CARD_SELECTED) {
-            console.log('card selected');
-            this.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
-            this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
+    showPairOverlay: function(data, pairNode, index) {
+        let pair = data.newPairs[index];
+        pairNode.opacity = 255;
+        pair.cards.forEach((cardName, i) => {
+            pairNode.getComponent('Pair').loadPairImage(cardName, i);
+        });
+        pairNode.getComponent('Pair').loadPairText(pair.name, pair.points);
+        setTimeout(function() {
+            pairNode.opacity = 0;
+            pairNode.getChildByName('cards').children.forEach((card) => {
+                card.destroy();
+            });
+        }, 1700);
+    },
 
-            if(data.newPairs.length) {
+    showPair: function(data) {
+        // 显示成功的配对，如果有多对显示，每2S显示一个
+        if(data.newPairs.length) {
+            let index = 0;
+            let pairNode = this.node.getChildByName('pair');
+            index++;
 
-                let index = 0;
-                let pairNode = context.node.getChildByName('pair');
+             this.scheduleOnce(function() {
+                 this.showPairOverlay(data, pairNode, 0);
+             }, 0);
 
-                const showPairOverlay = function(index) {
-                    let pair = data.newPairs[index];
-                    pairNode.opacity = 255;
-                    pair.cards.forEach((cardName, i) => {
-                        pairNode.getComponent('Pair').loadPairImage(cardName, i);
-                    });
-                    pairNode.getComponent('Pair').loadPairText(pair.name, pair.points);
-                    setTimeout(function() {
-                        pairNode.opacity = 0;
-                        pairNode.getChildByName('cards').children.forEach((card) => {
-                            card.destroy();
-                        });
-                    }, 1700);
-                };
-
-                index++;
-
-                 this.scheduleOnce(function() {
-                     // 这里的 this 指向 component
-                     showPairOverlay(0);
-                 }, 0);
-
-                if(data.newPairs.length > 1) {
-                    this.schedule(function() {
-                        showPairOverlay(index);
-                        index++;
-                    }, 2, data.newPairs.length-2, 0);
-                }
-
-
+            if(data.newPairs.length > 1) {
+                this.schedule(function() {
+                    this.showPairOverlay(data, pairNode, index);
+                    index++;
+                }, 2, data.newPairs.length-2, 0);
             }
+        }
+    },
+
+    handleCardSelected: function(data) {
+        console.log('card selected');
+        this.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
+        this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
+
+        this.showPair(data);
+    },
+
+    handleOpponentCardSelected: function(data) {
+        console.log('opponent card selected');
+        this.newCards.children.forEach((cardNode) => {
+            if(cardNode.getComponent('card').cardName === data.opponentSelectedDeckCard) {
+                window.selectedDeckCard = cardNode;
+            }
+        });
+        let context = this;
+        let callback = function() {
+            context.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
+        };
+        this.newCards.getComponent('newCards').moveSelectedCard(this.opponentSelectedDeck, callback, false);
+        this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
+
+        this.showPair(data);
+    },
+
+    handleGameAction(data) {
+        if(data.type === constants.events.CARD_SELECTED) {
+            this.handleCardSelected(data);
+        }
+        if(data.type === constants.events.OPPONENT_CARD_SELECTED) {
+            this.handleOpponentCardSelected(data);
         }
     },
 
