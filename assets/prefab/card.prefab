@@ -39,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 80
+      "width": 75,
+      "height": 100
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -117,6 +117,8 @@
     },
     "_enabled": true,
     "selected": false,
+    "isSelectable": false,
+    "cardName": "",
     "_id": ""
   },
   {

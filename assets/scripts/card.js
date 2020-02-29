@@ -27,7 +27,7 @@ cc.Class({
     handleCardSelected() {
         ws.send(JSON.stringify({
             type: Constants.events.SELECT_CARD,
-            playerId: window.id,
+            playerId: window.playerId,
             selectedCardFromDeck: this.cardName,
             selectedOwnCard: window.selectedOwnCard.getComponent('card').cardName
         }));

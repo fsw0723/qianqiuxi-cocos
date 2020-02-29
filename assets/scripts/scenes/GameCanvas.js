@@ -40,7 +40,7 @@ cc.Class({
 
         ws.onmessage = function (event) {
             let data = JSON.parse(event.data);
-            console.log('---data2---', data);
+            console.log('---message---', data);
             if(data.type === constants.events.START) {
                 context.node.getChildByName('label').opacity = 0;
                 context.game.opacity = 255;

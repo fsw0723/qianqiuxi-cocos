@@ -15,8 +15,19 @@ cc.Class({
             card.zIndex = 100-i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;
-            card.getComponent('card').isSelectable = true;
         }
+    },
+
+    setAllCardsUnselectable: function() {
+        this.node.children.forEach((card) => {
+            card.getComponent('card').isSelectable = false;
+        });
+    },
+
+    setAllCardsSelectable: function() {
+        this.node.children.forEach((card) => {
+            card.getComponent('card').isSelectable = true;
+        });
     },
 
     moveSelectedCard(selectedDeck) {

@@ -21,7 +21,7 @@ cc.Class({
             console.log("response text msg: " + event.data);
             let data = JSON.parse(event.data);
             if(data.type === constants.events.CREATE_PLAYER_ID) {
-                window.id = data.id;
+                window.playerId = data.id;
                 cc.director.loadScene(context.nextScene.name);
             }
         };

@@ -1,3 +1,6 @@
+const constants = require('./Constants');
+
+const cardWidth = 55;
 cc.Class({
     extends: cc.Component,
 
@@ -15,7 +18,9 @@ cc.Class({
             window.selectedDeckCard.y = 0;
             window.selectedDeckCard.zIndex = selectedDeck.children.length*2 + 1;
             window.selectedDeckCard.parent = selectedDeck;
-            callback();
+            if(callback) {
+                callback();
+            }
         }, this);
 
         let toMove = false;
@@ -27,7 +32,7 @@ cc.Class({
             }
             if(toMove) {
                 cardNode.zIndex++;
-                const cardAction = cc.moveBy(0.2, -50, 0);
+                const cardAction = cc.moveBy(0.2, -cardWidth, 0);
                 cardNode.runAction(cardAction);
             }
         }
@@ -42,28 +47,37 @@ cc.Class({
         window.selectedDeckCard.runAction(action);
     },
 
-    addCardToLast: function(cardName) {
-        let i = 9;
+    addCardToLast: function(cardName, index) {
         let card = cc.instantiate(this.cardPrefab);
-        card.x = -300+50*i;
-        card.zIndex = 100-i;
+        card.x = -300+cardWidth*index;
+        card.zIndex = 100-index;
         card.getComponent('card').loadCard(cardName);
         card.parent = this.node;
     },
 
+    setMatchingCardsSelectable: function(selectedCardName) {
+        this.node.children.forEach((card) => {
+            let cardName = card.getComponent('card').cardName;
+            if(constants.cardNames[cardName] === constants.cardNames[selectedCardName]) {
+                card.getComponent('card').isSelectable = true;
+            } else {
+                card.getComponent('card').isSelectable = false;
+            }
+        });
+    },
 
-    // LIFE-CYCLE CALLBACKS:
 
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
-            card.x = -300+50*i;
+            card.x = -300+cardWidth*i;
             card.zIndex = 100-i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;
         }
     },
 
+    // LIFE-CYCLE CALLBACKS
     start: function() {
 
     }

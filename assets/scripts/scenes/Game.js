@@ -36,14 +36,7 @@ cc.Class({
             }
         });
 
-        this.newCards.children.forEach((card) => {
-            let cardName = card.getComponent('card').cardName;
-            if(constants.cardNames[cardName] === constants.cardNames[selectedCardName]) {
-                card.getComponent('card').isSelectable = true;
-            } else {
-                card.getComponent('card').isSelectable = false;
-            }
-        });
+        this.newCards.getComponent('newCards').setMatchingCardsSelectable(selectedCardName);
     },
 
     onUnSelectCard() {
@@ -63,6 +56,10 @@ cc.Class({
         this.newCards.getComponent('newCards').initCards(data.deck);
         this.myCards.getComponent('MyCards').initCards(data.cards);
         this.opponentCards.getComponent('OpponentCards').initCards();
+
+        if(data.turn === window.playerId) {
+            this.myCards.getComponent('MyCards').setAllCardsSelectable();
+        }
     },
 
     showPairOverlay: function(data, pairNode, index) {
@@ -102,9 +99,9 @@ cc.Class({
 
     handleCardSelected: function(data) {
         console.log('card selected');
-        this.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
+        this.newCards.getComponent('newCards').addCardToLast(data.deck[data.deck.length-1], data.deck.length-1);
         this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
-
+        this.myCards.getComponent('MyCards').setAllCardsUnselectable();
         this.showPair(data);
     },
 
@@ -117,7 +114,8 @@ cc.Class({
         });
         let context = this;
         let callback = function() {
-            context.newCards.getComponent('newCards').addCardToLast(data.deck[9]);
+            context.newCards.getComponent('newCards').addCardToLast(data.deck[data.deck.length-1], data.deck.length-1);
+            context.myCards.getComponent('MyCards').setAllCardsSelectable();
         };
         this.newCards.getComponent('newCards').moveSelectedCard(this.opponentSelectedDeck, callback, false);
         this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
