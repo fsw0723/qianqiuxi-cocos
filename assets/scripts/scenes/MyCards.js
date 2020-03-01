@@ -1,3 +1,5 @@
+const constants = require('../Constants');
+
 cc.Class({
     extends: cc.Component,
 
@@ -60,7 +62,6 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.node.on('card-selected', this.onCardSelected, this);
     },
 
     start () {
@@ -69,6 +70,5 @@ cc.Class({
 
     // update (dt) {},
     onDestroy() {
-        this.node.off('card-selected', this.onCardSelected, this);
     }
 });

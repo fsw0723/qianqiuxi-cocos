@@ -62,21 +62,6 @@ cc.Class({
         }
     },
 
-    showPairOverlay: function(data, pairNode, index) {
-        let pair = data.newPairs[index];
-        pairNode.opacity = 255;
-        pair.cards.forEach((cardName, i) => {
-            pairNode.getComponent('Pair').loadPairImage(cardName, i);
-        });
-        pairNode.getComponent('Pair').loadPairText(pair.name, pair.points);
-        setTimeout(function() {
-            pairNode.opacity = 0;
-            pairNode.getChildByName('cards').children.forEach((card) => {
-                card.destroy();
-            });
-        }, 1700);
-    },
-
     showPair: function(data) {
         // 显示成功的配对，如果有多对显示，每2S显示一个
         if(data.newPairs.length) {
@@ -85,16 +70,36 @@ cc.Class({
             index++;
 
              this.scheduleOnce(function() {
-                 this.showPairOverlay(data, pairNode, 0);
+                 pairNode.getComponent('Pair').show(data, 0);
              }, 0);
 
             if(data.newPairs.length > 1) {
                 this.schedule(function() {
-                    this.showPairOverlay(data, pairNode, index);
+                    pairNode.getComponent('Pair').show(data, index);
                     index++;
                 }, 2, data.newPairs.length-2, 0);
             }
         }
+    },
+
+    checkRequireDiscardCard: function(data) {
+        let seasons = [];
+        this.myCards.children.forEach((card) => {
+            let season = constants.cardNames[card.getComponent('card').cardName];
+            if(seasons.indexOf(season) === -1) {
+                seasons.push(season);
+            }
+        });
+
+        for(let i = 0; i < data.deck.length; i++) {
+            let deckCard = data.deck[i];
+            if(seasons.indexOf(constants.cardNames[deckCard]) > -1) {
+                console.log('No need to discard');
+                return false;
+            }
+        }
+        console.log('Need to discard');
+        return true;
     },
 
     handleCardSelected: function(data) {
@@ -119,8 +124,12 @@ cc.Class({
         };
         this.newCards.getComponent('newCards').moveSelectedCard(this.opponentSelectedDeck, callback, false);
         this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
-
         this.showPair(data);
+
+        let requireDiscardCard = this.checkRequireDiscardCard(data);
+        if(requireDiscardCard) {
+            this.node.getChildByName('left panel label').opacity = 255;
+        }
     },
 
     handleGameAction(data) {

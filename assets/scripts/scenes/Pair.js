@@ -24,6 +24,28 @@ cc.Class({
         this.node.getChildByName('label').getComponent(cc.Label).string = `完成组对  ${pairName} !   获得额外分值 ${score} 分！`;
     },
 
+    show(data, index) {
+        let pair = data.newPairs[index];
+        let context = this;
+
+        this.node.opacity = 255;
+        let stopPropagation = function(e) {
+            e.stopPropagation();
+        };
+        this.node.on(cc.Node.EventType.TOUCH_START, stopPropagation);
+        pair.cards.forEach((cardName, i) => {
+            this.node.getComponent('Pair').loadPairImage(cardName, i);
+        });
+        this.node.getComponent('Pair').loadPairText(pair.name, pair.points);
+        setTimeout(function() {
+            context.node.opacity = 0;
+            context.node.getChildByName('cards').children.forEach((card) => {
+                card.destroy();
+                context.node.off(cc.Node.EventType.TOUCH_START, stopPropagation);
+            });
+        }, 1700);
+    },
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
