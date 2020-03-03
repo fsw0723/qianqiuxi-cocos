@@ -28,6 +28,16 @@ cc.Class({
         }
     },
 
+    init(data) {
+        this.newCards.getComponent('newCards').initCards(data.deck);
+        this.myCards.getComponent('MyCards').initCards(data.cards);
+        this.opponentCards.getComponent('OpponentCards').initCards();
+
+        if(data.turn === window.playerId) {
+            this.myCards.getComponent('MyCards').setAllCardsSelectable();
+        }
+    },
+
     onSelectCard(event) {
         let selectedCardName = event.target.getComponent('card').cardName;
         this.myCards.children.forEach((card) => {
@@ -40,9 +50,7 @@ cc.Class({
     },
 
     onUnSelectCard() {
-        this.newCards.children.forEach((card) => {
-            card.getComponent('card').isSelectable = false;
-        });
+        this.newCards.getComponent('newCards').setAllCardsUnselectable();
     },
 
     onCardSelected() {
@@ -50,16 +58,6 @@ cc.Class({
         this.myCards.getComponent('MyCards').moveSelectedCard(this.selectedDeck);
 //        this.newCards.getComponent('newCards').addCardToLast('blts');
 
-    },
-
-    init(data) {
-        this.newCards.getComponent('newCards').initCards(data.deck);
-        this.myCards.getComponent('MyCards').initCards(data.cards);
-        this.opponentCards.getComponent('OpponentCards').initCards();
-
-        if(data.turn === window.playerId) {
-            this.myCards.getComponent('MyCards').setAllCardsSelectable();
-        }
     },
 
     showPair: function(data) {
@@ -82,32 +80,21 @@ cc.Class({
         }
     },
 
-    checkRequireDiscardCard: function(data) {
-        let seasons = [];
-        this.myCards.children.forEach((card) => {
-            let season = constants.cardNames[card.getComponent('card').cardName];
-            if(seasons.indexOf(season) === -1) {
-                seasons.push(season);
-            }
-        });
-
-        for(let i = 0; i < data.deck.length; i++) {
-            let deckCard = data.deck[i];
-            if(seasons.indexOf(constants.cardNames[deckCard]) > -1) {
-                console.log('No need to discard');
-                return false;
-            }
-        }
-        console.log('Need to discard');
-        return true;
-    },
-
     handleCardSelected: function(data) {
         console.log('card selected');
         this.newCards.getComponent('newCards').addCardToLast(data.deck[data.deck.length-1], data.deck.length-1);
         this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
-        this.myCards.getComponent('MyCards').setAllCardsUnselectable();
         this.showPair(data);
+    },
+
+    discardCard: function(data) {
+        let requireDiscardCard = this.myCards.getComponent('MyCards').checkRequireDiscardCard(data);
+        if(requireDiscardCard) {
+            this.node.getChildByName('left panel label').opacity = 255;
+            window.discardingCard = true;
+        } else {
+            this.node.getChildByName('left panel label').opacity = 0;
+        }
     },
 
     handleOpponentCardSelected: function(data) {
@@ -126,18 +113,48 @@ cc.Class({
         this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
         this.showPair(data);
 
-        let requireDiscardCard = this.checkRequireDiscardCard(data);
-        if(requireDiscardCard) {
-            this.node.getChildByName('left panel label').opacity = 255;
+        this.discardCard(data);
+    },
+
+    handleCardDiscarded(data) {
+        let i = data.cards.length-1;
+        this.myCards.getComponent('MyCards').addCard(data.newCard, i);
+        this.myCards.getComponent('MyCards').setAllCardsSelectable();
+        this.discardCard(data);
+    },
+
+    handleOpponentCardDiscarded(data) {
+        this.newCards.getComponent('newCards').addCardToLast(data.cardDiscarded, data.deck.length-1);
+    },
+
+    checkGameOver(data) {
+        if(data.isGameOver === true) {
+            console.log('Game over!');
+            this.node.getChildByName('result').opacity = 255;
+            if(data.winner === window.playerId) {
+                this.node.getChildByName('result').getComponent(cc.Label).string = '胜利';
+            } else {
+                this.node.getChildByName('result').getComponent(cc.Label).string = '失败';
+            }
         }
     },
 
     handleGameAction(data) {
+        if(data.type === constants.events.CARD_SELECTED || data.type === constants.events.OPPONENT_CARD_SELECTED) {
+            this.checkGameOver(data);
+        }
         if(data.type === constants.events.CARD_SELECTED) {
             this.handleCardSelected(data);
         }
         if(data.type === constants.events.OPPONENT_CARD_SELECTED) {
             this.handleOpponentCardSelected(data);
+        }
+        if(data.type === constants.events.CARD_DISCARDED) {
+            this.handleCardDiscarded(data);
+        }
+
+        if(data.type === constants.events.OPPONENT_CARD_DISCARDED) {
+            this.handleOpponentCardDiscarded(data);
         }
     },
 

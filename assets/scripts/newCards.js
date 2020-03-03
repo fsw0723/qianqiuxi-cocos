@@ -1,6 +1,5 @@
 const constants = require('./Constants');
 
-const cardWidth = 55;
 cc.Class({
     extends: cc.Component,
 
@@ -32,7 +31,7 @@ cc.Class({
             }
             if(toMove) {
                 cardNode.zIndex++;
-                const cardAction = cc.moveBy(0.2, -cardWidth, 0);
+                const cardAction = cc.moveBy(0.2, -constants.cardWidth, 0);
                 cardNode.runAction(cardAction);
             }
         }
@@ -49,7 +48,7 @@ cc.Class({
 
     addCardToLast: function(cardName, index) {
         let card = cc.instantiate(this.cardPrefab);
-        card.x = -300+cardWidth*index;
+        card.x = -300+constants.cardWidth*index;
         card.zIndex = 100-index;
         card.getComponent('card').loadCard(cardName);
         card.parent = this.node;
@@ -66,11 +65,16 @@ cc.Class({
         });
     },
 
+    setAllCardsUnselectable: function() {
+        this.node.children.forEach((card) => {
+            card.getComponent('card').isSelectable = false;
+        });
+    },
 
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
-            card.x = -300+cardWidth*i;
+            card.x = -300+constants.cardWidth*i;
             card.zIndex = 100-i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;

@@ -9,8 +9,13 @@ module.exports.events = {
     START: 'START',
     SELECT_CARD: 'SELECT_CARD',
     CARD_SELECTED: 'CARD_SELECTED',
-    OPPONENT_CARD_SELECTED: 'OPPONENT_CARD_SELECTED'
+    OPPONENT_CARD_SELECTED: 'OPPONENT_CARD_SELECTED',
+    DISCARD_CARD: 'DISCARD_CARD',
+    CARD_DISCARDED: 'CARD_DISCARDED',
+    OPPONENT_CARD_DISCARDED: 'OPPONENT_CARD_DISCARDED'
 };
+
+module.exports.cardWidth = 55;
 
 module.exports.cardNames = {
     'al': 'autumn',  //安陆
