@@ -1,12 +1,9 @@
 const remoteUrl = require('../Constants').remoteUrl;
 
-let ws;
-const initializeWs = function() {
+module.exports.initializeWs = function() {
 	console.log('WebSocket...', new Date())
-	if(ws) {
-		return ws;
-	}
-	ws = new WebSocket(`ws://${remoteUrl}`);
+
+	let ws = new WebSocket(`wss://${remoteUrl}`);
 
 	ws.onerror = function (event) {
 	    console.log("Send Text fired an error");
@@ -17,7 +14,3 @@ const initializeWs = function() {
 
 	return ws;
 }
-
-initializeWs();
-
-module.exports = ws;

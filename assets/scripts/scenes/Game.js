@@ -1,4 +1,3 @@
-const ws = require('../utils/websocket');
 const constants = require('../Constants');
 
 cc.Class({

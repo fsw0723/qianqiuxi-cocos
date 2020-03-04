@@ -1,5 +1,4 @@
-const ws = require('./utils/websocket');
-const wsRequest = require('./utils/wsRequests');
+const wsRequests = require('./utils/wsRequests');
 const constants = require('./Constants');
 
 cc.Class({
@@ -27,12 +26,8 @@ cc.Class({
     },
 
     handleCardSelected() {
-        ws.send(JSON.stringify({
-            type: constants.events.SELECT_CARD,
-            playerId: window.playerId,
-            selectedCardFromDeck: this.cardName,
-            selectedOwnCard: window.selectedOwnCard.getComponent('card').cardName
-        }));
+        wsRequests.selectCardRequest(this.cardName, window.selectedOwnCard.getComponent('card').cardName);
+
         this.node.parent.parent.getChildByName('my cards').getComponent('MyCards').setAllCardsUnselectable();
         this.node.parent.parent.getChildByName('new cards').getComponent('newCards').setAllCardsUnselectable();
         this.node.dispatchEvent( new cc.Event.EventCustom('card-selected', true) );
@@ -43,7 +38,7 @@ cc.Class({
         let deckNode = this.node.parent.parent.getChildByName('new cards');
 
         // Send WS request
-        wsRequest.discardCardRequest(this.cardName);
+        wsRequests.discardCardRequest(this.cardName);
         // Move card to deck
         let positionX = this.node.parent.parent.getChildByName('new cards').children[0].getPosition().x + constants.cardWidth;
         const cb = cc.callFunc(function(target) {

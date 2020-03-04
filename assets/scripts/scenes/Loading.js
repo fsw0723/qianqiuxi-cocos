@@ -1,6 +1,5 @@
-const ws = require('../utils/websocket');
+const {initializeWs} = require('../utils/websocket');
 const constants = require('../Constants');
-
 
 cc.Class({
     extends: cc.Component,
@@ -13,6 +12,9 @@ cc.Class({
 
     onLoad () {
         let context = this;
+        let ws = initializeWs();
+
+        window.ws = ws;
         ws.onopen = function (event) {
             console.log("Send Text WS was opened.");
         };

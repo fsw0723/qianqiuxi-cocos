@@ -1,4 +1,3 @@
-const ws = require('../utils/websocket');
 const constants = require('../Constants');
 
 cc.Class({
@@ -34,11 +33,11 @@ cc.Class({
 //                context.game.getChildByName('pair').getComponent('Pair').loadPairImage('blts', 1);
 //                context.game.getChildByName('pair').getComponent('Pair').loadPairText('永相随', 3);
 
-        ws.send(JSON.stringify({
+        window.ws.send(JSON.stringify({
             type: constants.events.PAIRING
         }));
 
-        ws.onmessage = function (event) {
+        window.ws.onmessage = function (event) {
             let data = JSON.parse(event.data);
             console.log(`[${new Date()}] WS data received`, data);
             if(data.type === constants.events.START) {

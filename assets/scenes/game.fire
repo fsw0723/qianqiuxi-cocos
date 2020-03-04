@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        233.88801653797236,
+        231.3045547474767,
         0,
         0,
         0,
@@ -2250,10 +2250,8 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": {
-      "__uuid__": "4be0e206-a9f6-45dc-8085-28be38486577"
-    },
-    "_isSystemFontUsed": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
