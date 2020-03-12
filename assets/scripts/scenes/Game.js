@@ -107,6 +107,7 @@ cc.Class({
         let callback = function() {
             context.newCards.getComponent('newCards').addCardToLast(data.deck[data.deck.length-1], data.deck.length-1);
             context.myCards.getComponent('MyCards').setAllCardsSelectable();
+            context.opponentCards.getComponent('OpponentCards').removeCardFromEnd();
         };
         this.newCards.getComponent('newCards').moveSelectedCard(this.opponentSelectedDeck, callback, false);
         this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
@@ -163,6 +164,7 @@ cc.Class({
         this.node.on('select-card', this.onSelectCard, this);
         this.node.on('unselect-card', this.onUnSelectCard, this);
         this.node.on('card-selected', this.onCardSelected, this);
+        window.mySelectedCards = [];
     },
 
     start () {

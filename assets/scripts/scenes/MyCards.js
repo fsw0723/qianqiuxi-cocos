@@ -33,14 +33,11 @@ cc.Class({
     },
 
     moveCardsToLeft(selectedCard) {
-        let toMove = false;
+        let originalX = selectedCard.x;
         for(let i = this.node.children.length-1; i >= 0; i--) {
             let cardNode = this.node.children[i];
-            if(cardNode._id === selectedCard._id) {
-                toMove = true;
-                continue;
-            }
-            if(toMove) {
+
+            if(cardNode.x > originalX) {
                 const cardAction = cc.moveBy(0.2, -50, 0);
                 cardNode.zIndex++;
                 cardNode.runAction(cardAction);

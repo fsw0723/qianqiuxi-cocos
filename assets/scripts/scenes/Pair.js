@@ -28,28 +28,32 @@ cc.Class({
         let pair = data.newPairs[index];
         let context = this;
 
-        this.node.opacity = 255;
-        let stopPropagation = function(e) {
-            e.stopPropagation();
-        };
-        this.node.on(cc.Node.EventType.TOUCH_START, stopPropagation);
+        this.node.active = true;
+//        let stopPropagation = function(e) {
+//            e.stopPropagation();
+//        };
+//        this.node.on(cc.Node.EventType.TOUCH_START, stopPropagation);
         pair.cards.forEach((cardName, i) => {
             this.node.getComponent('Pair').loadPairImage(cardName, i);
         });
         this.node.getComponent('Pair').loadPairText(pair.name, pair.points);
         setTimeout(function() {
-            context.node.opacity = 0;
+            context.node.active = false;
             context.node.getChildByName('cards').children.forEach((card) => {
                 card.destroy();
-                context.node.off(cc.Node.EventType.TOUCH_START, stopPropagation);
+//                context.node.off(cc.Node.EventType.TOUCH_START, stopPropagation);
             });
         }, 1700);
+    },
+
+    stopPropagation(e) {
+        e.stopPropagation();
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.node.on('card-selected', this.onCardSelected, this);
+        this.node.on(cc.Node.EventType.TOUCH_START, this.stopPropagation);
     },
 
     start () {
@@ -57,4 +61,7 @@ cc.Class({
     },
 
     // update (dt) {},
+    onDestroy() {
+        context.node.off(cc.Node.EventType.TOUCH_START, this.stopPropagation);
+    }
 });

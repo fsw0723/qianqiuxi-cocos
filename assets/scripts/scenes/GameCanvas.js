@@ -27,11 +27,10 @@ cc.Class({
 //            "cards": ["pl", "fqx", "zrl", "xyz", "blts", "hy", "ttzq", "jsh"]
 //        }
 //
-//                context.node.getChildByName('label').opacity = 0;
-//                context.game.opacity = 255;
-//                context.game.getChildByName('pair').getComponent('Pair').loadPairImage('ar', 0);
-//                context.game.getChildByName('pair').getComponent('Pair').loadPairImage('blts', 1);
-//                context.game.getChildByName('pair').getComponent('Pair').loadPairText('永相随', 3);
+//        context.node.getChildByName('label').opacity = 0;
+//        context.game.opacity = 255;
+//        context.game.getComponent('Game').init(data);
+//        context.game.getComponent('Game').handleGameAction(data);
 
         window.ws.send(JSON.stringify({
             type: constants.events.PAIRING

@@ -1,5 +1,5 @@
-const wsRequests = require('./utils/wsRequests');
-const constants = require('./Constants');
+const wsRequests = require('../utils/wsRequests');
+const constants = require('../Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -27,6 +27,8 @@ cc.Class({
 
     handleCardSelected() {
         wsRequests.selectCardRequest(this.cardName, window.selectedOwnCard.getComponent('card').cardName);
+        window.mySelectedCards.push(this.cardName);
+        window.mySelectedCards.push(window.selectedOwnCard.getComponent('card').cardName);
 
         this.node.parent.parent.getChildByName('my cards').getComponent('MyCards').setAllCardsUnselectable();
         this.node.parent.parent.getChildByName('new cards').getComponent('newCards').setAllCardsUnselectable();
@@ -85,6 +87,7 @@ cc.Class({
     },
 
     onTouchStart: function(event) {
+        console.log('TOUCH----')
         if(!this.selected) {
             this.selectCard();
         } else {

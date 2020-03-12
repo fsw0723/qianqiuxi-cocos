@@ -11,6 +11,7 @@ cc.Class({
     },
 
     moveSelectedCard(selectedDeck, callback, isOwnCard) {
+        let originalX = window.selectedDeckCard.x;
         const finished = cc.callFunc(function(target) {
             window.selectedDeckCard.removeFromParent();
             window.selectedDeckCard.x = 0;
@@ -25,11 +26,7 @@ cc.Class({
         let toMove = false;
         for(let i = this.node.children.length-1; i >= 0; i--) {
             let cardNode = this.node.children[i];
-            if(cardNode._id === window.selectedDeckCard._id) {
-                toMove = true;
-                continue;
-            }
-            if(toMove) {
+            if(cardNode.x > originalX) {
                 cardNode.zIndex++;
                 const cardAction = cc.moveBy(0.2, -constants.cardWidth, 0);
                 cardNode.runAction(cardAction);
@@ -48,7 +45,7 @@ cc.Class({
 
     addCardToLast: function(cardName, index) {
         let card = cc.instantiate(this.cardPrefab);
-        card.x = -300+constants.cardWidth*index;
+        card.x = -250+constants.cardWidth*index;
         card.zIndex = 100-index;
         card.getComponent('card').loadCard(cardName);
         card.parent = this.node;
@@ -74,7 +71,7 @@ cc.Class({
     initCards: function(cards) {
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardPrefab);
-            card.x = -300+constants.cardWidth*i;
+            card.x = -250+constants.cardWidth*i;
             card.zIndex = 100-i;
             card.getComponent('card').loadCard(cards[i]);
             card.parent = this.node;
