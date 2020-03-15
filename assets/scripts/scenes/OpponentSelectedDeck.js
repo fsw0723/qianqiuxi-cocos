@@ -10,7 +10,7 @@ cc.Class({
     },
 
     onTouchStart() {
-        this.node.parent.parent.getChildByName('overlay').getComponent('Overlay').mode = 'OWN';
+        this.node.parent.parent.getChildByName('overlay').getComponent('Overlay').mode = 'OPPONENT';
         this.node.parent.parent.getChildByName('overlay').active = true;
         this.node.parent.active = false;
     },

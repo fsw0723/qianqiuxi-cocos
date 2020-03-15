@@ -9,7 +9,8 @@ cc.Class({
         cards: {
             default: null,
             type: cc.Node
-        }
+        },
+        mode: ''
     },
 
     onClickBack() {
@@ -20,12 +21,20 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.cards.getComponent('Cards').initCards();
     },
 
     start () {
-
     },
+
+    onEnable() {
+        if(this.mode === 'OWN') {
+            this.node.getChildByName('header').getChildByName('title').getComponent(cc.Label).string = '我方卡牌';
+            this.cards.getComponent('Cards').initCards(window.mySelectedCards);
+        } else if (this.mode === 'OPPONENT') {
+            this.node.getChildByName('header').getChildByName('title').getComponent(cc.Label).string = '对方卡牌';
+            this.cards.getComponent('Cards').initCards(window.opponentSelectedCards);
+        }
+    }
 
     // update (dt) {},
 });

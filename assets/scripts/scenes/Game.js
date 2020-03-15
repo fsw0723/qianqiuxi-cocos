@@ -34,6 +34,9 @@ cc.Class({
 
         if(data.turn === window.playerId) {
             this.myCards.getComponent('MyCards').setAllCardsSelectable();
+            this.node.getChildByName('my score').getChildByName('arrow').opacity = 255;
+        } else {
+            this.node.getChildByName('opponent score').getChildByName('arrow').opacity = 255;
         }
     },
 
@@ -55,8 +58,6 @@ cc.Class({
     onCardSelected() {
         this.newCards.getComponent('newCards').moveSelectedCard(this.selectedDeck, null, true);
         this.myCards.getComponent('MyCards').moveSelectedCard(this.selectedDeck);
-//        this.newCards.getComponent('newCards').addCardToLast('blts');
-
     },
 
     showPair: function(data) {
@@ -82,7 +83,11 @@ cc.Class({
     handleCardSelected: function(data) {
         console.log('card selected');
         this.newCards.getComponent('newCards').addCardToLast(data.deck[data.deck.length-1], data.deck.length-1);
+
         this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = data.score;
+        this.node.getChildByName('my score').getChildByName('arrow').opacity = 0;
+        this.node.getChildByName('opponent score').getChildByName('arrow').opacity = 255;
+
         this.showPair(data);
     },
 
@@ -110,10 +115,17 @@ cc.Class({
             context.opponentCards.getComponent('OpponentCards').removeCardFromEnd();
         };
         this.newCards.getComponent('newCards').moveSelectedCard(this.opponentSelectedDeck, callback, false);
+
+        //Update score and arrow
         this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = data.opponentScore;
+        this.node.getChildByName('opponent score').getChildByName('arrow').opacity = 0;
+        this.node.getChildByName('my score').getChildByName('arrow').opacity = 255;
+
         this.showPair(data);
 
         this.discardCard(data);
+        window.opponentSelectedCards.push(data.opponentSelectedDeckCard);
+        window.opponentSelectedCards.push(data.opponentSelectedOwnCard);
     },
 
     handleCardDiscarded(data) {
@@ -165,6 +177,7 @@ cc.Class({
         this.node.on('unselect-card', this.onUnSelectCard, this);
         this.node.on('card-selected', this.onCardSelected, this);
         window.mySelectedCards = [];
+        window.opponentSelectedCards = [];
     },
 
     start () {

@@ -8,20 +8,19 @@ cc.Class({
         }
     },
 
-    initCards: function() {
+    initCards: function(cards) {
 //        window.mySelectedCards = ['ar', 'blts', 'tyc', 'hyue', 'yd', 'fls', 'jt', 'lyc', 'xyz']
-        for(let i = 0; i < window.mySelectedCards.length; i++) {
+        for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardWithPointsPrefab);
             card.x = 80*(i%7);
             card.y = -Math.floor(i/7)*150;
-            card.getComponent('cardWithPoints').loadCard(window.mySelectedCards[i]);
+            card.getComponent('cardWithPoints').loadCard(cards[i]);
             card.parent = this.node;
         }
     },
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.initCards();
     },
 
     start () {
