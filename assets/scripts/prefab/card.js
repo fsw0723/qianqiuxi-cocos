@@ -69,7 +69,11 @@ cc.Class({
                 window.selectedDeckCard = this.node;
                 this.handleCardSelected();
             } else {
-                this.node.y += 10;
+                if(this.isOnHover) {
+                    this.node.y += 10;
+                } else {
+                    this.node.y += 30;
+                }
                 this.selected = true;
                 window.selectedOwnCard = this.node;
                 this.node.dispatchEvent( new cc.Event.EventCustom('select-card', true) );
