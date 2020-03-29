@@ -54,7 +54,8 @@ cc.Class({
     setMatchingCardsSelectable: function(selectedCardName) {
         this.node.children.forEach((card) => {
             let cardName = card.getComponent('card').cardName;
-            if(constants.cardNames[cardName] === constants.cardNames[selectedCardName]) {
+            console.log('CARD NAME---', cardName);
+            if(constants.cardNames[cardName].season === constants.cardNames[selectedCardName].season) {
                 card.getComponent('card').isSelectable = true;
             } else {
                 card.getComponent('card').isSelectable = false;

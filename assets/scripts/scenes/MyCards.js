@@ -64,7 +64,7 @@ cc.Class({
     checkRequireDiscardCard: function(data) {
         let seasons = [];
         this.node.children.forEach((card) => {
-            let season = constants.cardNames[card.getComponent('card').cardName];
+            let season = constants.cardNames[card.getComponent('card').cardName].season;
             if(seasons.indexOf(season) === -1) {
                 seasons.push(season);
             }
@@ -72,7 +72,7 @@ cc.Class({
 
         for(let i = 0; i < data.deck.length; i++) {
             let deckCard = data.deck[i];
-            if(seasons.indexOf(constants.cardNames[deckCard]) > -1) {
+            if(seasons.indexOf(constants.cardNames[deckCard].season) > -1) {
                 console.log('No need to discard');
                 return false;
             }
