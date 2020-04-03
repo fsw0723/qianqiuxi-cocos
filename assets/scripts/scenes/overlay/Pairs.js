@@ -10,10 +10,11 @@ cc.Class({
 
     initPairs: function(pairs) {
 //        window.mySelectedCards = ['ar', 'blts', 'tyc', 'hyue', 'yd', 'fls', 'jt', 'lyc', 'xyz']
-        for(let i = 0; i < 2; i++) {
+        this.node.removeAllChildren();
+        for(let i = 0; i < pairs.length; i++) {
             let pairPrefab = cc.instantiate(this.pairPrefab);
             pairPrefab.getComponent('matchingPair').load(pairs[i]);
-            pairPrefab.y = 140*i;
+            pairPrefab.y = -140*i;
             pairPrefab.parent = this.node;
         }
     },

@@ -10,6 +10,7 @@ cc.Class({
 
     initCards: function(cards) {
 //        window.mySelectedCards = ['ar', 'blts', 'tyc', 'hyue', 'yd', 'fls', 'jt', 'lyc', 'xyz']
+        this.node.removeAllChildren();
         for(let i = 0; i < cards.length; i++) {
             let card = cc.instantiate(this.cardWithPointsPrefab);
             card.x = 80*(i%7);

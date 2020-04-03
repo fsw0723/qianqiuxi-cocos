@@ -47,6 +47,14 @@ cc.Class({
 
             context.game.getComponent('Game').handleGameAction(data);
         };
+
+        window.ws.onclose = function (event) {
+            console.log("WebSocket instance closed.", new Date());
+
+            let notificationNode = this.node.getChildByName('notification');
+            notificationNode.active = true;
+            notificationNode.getChildByName('message').getComponent(cc.Label).string = '已掉线';
+        };
     },
 
     // update (dt) {},

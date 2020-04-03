@@ -89,6 +89,8 @@ cc.Class({
         this.node.getChildByName('opponent score').getChildByName('arrow').opacity = 255;
 
         this.showPair(data);
+
+        window.myPairs = [...window.myPairs, ...data.newPairs];
     },
 
     discardCard: function(data) {
@@ -126,6 +128,8 @@ cc.Class({
         this.discardCard(data);
         window.opponentSelectedCards.push(data.opponentSelectedDeckCard);
         window.opponentSelectedCards.push(data.opponentSelectedOwnCard);
+
+        window.opponentPairs = [...window.opponentPairs, ...data.newPairs];
     },
 
     handleCardDiscarded(data) {
@@ -178,6 +182,8 @@ cc.Class({
         this.node.on('card-selected', this.onCardSelected, this);
         window.mySelectedCards = [];
         window.opponentSelectedCards = [];
+        window.myPairs = [];
+        window.opponentPairs = [];
     },
 
     start () {
