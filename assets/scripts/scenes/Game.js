@@ -96,6 +96,7 @@ cc.Class({
     discardCard: function(data) {
         let requireDiscardCard = this.myCards.getComponent('MyCards').checkRequireDiscardCard(data);
         if(requireDiscardCard) {
+            console.log('require discard card');
             this.node.getChildByName('left panel label').opacity = 255;
             window.discardingCard = true;
         } else {
@@ -146,12 +147,7 @@ cc.Class({
     checkGameOver(data) {
         if(data.isGameOver === true) {
             console.log('Game over!');
-            this.node.getChildByName('result').opacity = 255;
-            if(data.winner === window.playerId) {
-                this.node.getChildByName('result').getComponent(cc.Label).string = '胜利';
-            } else {
-                this.node.getChildByName('result').getComponent(cc.Label).string = '失败';
-            }
+            this.node.getChildByName('result').getComponent('Result').showResult(data.winner);
         }
     },
 

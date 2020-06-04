@@ -10,7 +10,16 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
+    prefetchImages(){
+        let xhr = new XMLHttpRequest();
+
+        for (let [cardName, value] of Object.entries(constants.cardNames)) {
+            cc.loader.load({url: `http://www.fun-world.xyz:3000/images/${cardName}`, type: "jpeg"})
+        }
+    },
+
     onLoad () {
+        this.prefetchImages();
         let context = this;
         let ws = initializeWs();
 
@@ -27,7 +36,6 @@ cc.Class({
                 cc.director.loadScene(context.nextScene.name);
             }
         };
-
     },
 
     start () {

@@ -1,4 +1,5 @@
 const constants = require('../Constants');
+const wsRequests = require('../utils/wsRequests');
 
 cc.Class({
     extends: cc.Component,
@@ -32,9 +33,7 @@ cc.Class({
 //        context.game.getComponent('Game').init(data);
 //        context.game.getComponent('Game').handleGameAction(data);
 
-        window.ws.send(JSON.stringify({
-            type: constants.events.PAIRING
-        }));
+        wsRequests.pairingRequest();
 
         window.ws.onmessage = function (event) {
             let data = JSON.parse(event.data);
@@ -51,7 +50,7 @@ cc.Class({
         window.ws.onclose = function (event) {
             console.log("WebSocket instance closed.", new Date());
 
-            let notificationNode = this.node.getChildByName('notification');
+            let notificationNode = context.node.getChildByName('notification');
             notificationNode.active = true;
             notificationNode.getChildByName('message').getComponent(cc.Label).string = '已掉线';
         };
