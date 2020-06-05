@@ -27,7 +27,30 @@ cc.Class({
         }
     },
 
+    clear() {
+        this.newCards.removeAllChildren();
+        this.myCards.removeAllChildren();
+        this.opponentCards.removeAllChildren();
+        this.selectedDeck.removeAllChildren();
+        this.opponentSelectedDeck.removeAllChildren();
+        this.node.getChildByName('left panel label').opacity = 0;
+        this.node.getChildByName('my score').getChildByName('points').getComponent(cc.Label).string = 0;
+        this.node.getChildByName('opponent score').getChildByName('points').getComponent(cc.Label).string = 0;
+        this.node.getChildByName('my score').getChildByName('arrow').opacity = 0;
+        this.node.getChildByName('opponent score').getChildByName('arrow').opacity = 0;
+
+        window.mySelectedCards = [];
+        window.opponentSelectedCards = [];
+        window.myPairs = [];
+        window.opponentPairs = [];
+        window.discardingCard = false;
+        window.selectedDeckCard = null
+        window.selectedOwnCard = null;
+    },
+
     init(data) {
+        this.clear();
+
         this.newCards.getComponent('newCards').initCards(data.deck);
         this.myCards.getComponent('MyCards').initCards(data.cards);
         this.opponentCards.getComponent('OpponentCards').initCards();
@@ -145,6 +168,7 @@ cc.Class({
     },
 
     checkGameOver(data) {
+//        this.node.getChildByName('result').getComponent('Result').showResult(window.playerId);
         if(data.isGameOver === true) {
             console.log('Game over!');
             this.node.getChildByName('result').getComponent('Result').showResult(data.winner);
@@ -176,10 +200,6 @@ cc.Class({
         this.node.on('select-card', this.onSelectCard, this);
         this.node.on('unselect-card', this.onUnSelectCard, this);
         this.node.on('card-selected', this.onCardSelected, this);
-        window.mySelectedCards = [];
-        window.opponentSelectedCards = [];
-        window.myPairs = [];
-        window.opponentPairs = [];
     },
 
     start () {

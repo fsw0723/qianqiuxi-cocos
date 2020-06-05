@@ -91,7 +91,6 @@ cc.Class({
     },
 
     onTouchStart: function(event) {
-        console.log('TOUCH----')
         if(!this.selected) {
             this.selectCard();
         } else {

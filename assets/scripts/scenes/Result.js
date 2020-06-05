@@ -11,7 +11,7 @@ cc.Class({
     },
 
     showResult(winner) {
-        this.node.opacity = 255;
+        this.node.active = true;
         if(winner === window.playerId) {
             this.resultString.getComponent(cc.Label).string = '胜利';
         } else {
@@ -21,6 +21,8 @@ cc.Class({
 
     newGame() {
         wsRequests.pairingRequest();
+        this.node.active = false;
+        this.node.dispatchEvent( new cc.Event.EventCustom('restart', true) );
     },
     // LIFE-CYCLE CALLBACKS:
 
