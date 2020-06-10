@@ -63,11 +63,15 @@ cc.Class({
 
     checkRequireDiscardCard: function(data) {
         let seasons = [];
-        this.node.children.forEach((card) => {
-            let season = constants.cardNames[card.getComponent('card').cardName].season;
-            if(seasons.indexOf(season) === -1) {
-                seasons.push(season);
+        window.myCards.forEach((cardName) => {
+            let cardObj= constants.cardNames[cardName];
+            if (cardObj) {
+                let season = cardObj.season;
+                if(seasons.indexOf(season) === -1) {
+                    seasons.push(season);
+                }
             }
+
         });
 
         for(let i = 0; i < data.deck.length; i++) {

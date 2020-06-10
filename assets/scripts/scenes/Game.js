@@ -43,6 +43,7 @@ cc.Class({
         window.opponentSelectedCards = [];
         window.myPairs = [];
         window.opponentPairs = [];
+        window.myCards = [];
         window.discardingCard = false;
         window.selectedDeckCard = null
         window.selectedOwnCard = null;
@@ -176,6 +177,7 @@ cc.Class({
     },
 
     handleGameAction(data) {
+        window.myCards = data.cards;
         if(data.type === constants.events.CARD_SELECTED || data.type === constants.events.OPPONENT_CARD_SELECTED) {
             this.checkGameOver(data);
         }
