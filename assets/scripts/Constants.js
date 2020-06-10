@@ -1,4 +1,5 @@
-module.exports.remoteUrl = 'qian-qiu-xi.herokuapp.com';
+module.exports.remoteUrl = 'fun-world.xyz:3000';
+module.exports.imagesUrl = 'https://www.fun-world.xyz:3000/images'
 
 // module.exports.remoteUrl = 'localhost:3000';
 

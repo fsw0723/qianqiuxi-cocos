@@ -1,3 +1,4 @@
+const Constants = require('../Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -7,7 +8,7 @@ cc.Class({
 
     loadCard: function(cardName) {
         let context = this;
-        cc.loader.load({url: `https://qian-qiu-xi.herokuapp.com/images/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
+        cc.loader.load({url: `${Constants.imagesUrl}/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
             if(err){
                 cc.error(err);
             } else{

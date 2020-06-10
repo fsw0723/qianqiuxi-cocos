@@ -1,5 +1,5 @@
 const {initializeWs} = require('../utils/websocket');
-const constants = require('../Constants');
+const Constants = require('../Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -13,8 +13,8 @@ cc.Class({
     prefetchImages(){
         let xhr = new XMLHttpRequest();
 
-        for (let [cardName, value] of Object.entries(constants.cardNames)) {
-            cc.loader.load({url: `http://www.fun-world.xyz:3000/images/${cardName}`, type: "jpeg"})
+        for (let [cardName, value] of Object.entries(Constants.cardNames)) {
+            cc.loader.load({url: `${Constants.imagesUrl}/${cardName}.jpg`, type: "jpeg"})
         }
     },
 
@@ -31,7 +31,7 @@ cc.Class({
         ws.onmessage = function (event) {
             console.log("response text msg: " + event.data);
             let data = JSON.parse(event.data);
-            if(data.type === constants.events.CREATE_PLAYER_ID) {
+            if(data.type === Constants.events.CREATE_PLAYER_ID) {
                 window.playerId = data.id;
                 cc.director.loadScene(context.nextScene.name);
             }

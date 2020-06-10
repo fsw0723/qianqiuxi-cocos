@@ -1,5 +1,5 @@
 const wsRequests = require('../utils/wsRequests');
-const constants = require('../Constants');
+const Constants = require('../Constants');
 
 cc.Class({
     extends: cc.Component,
@@ -13,7 +13,7 @@ cc.Class({
 
     loadCard: function(cardName) {
         let context = this;
-        cc.loader.load({url: `https://qian-qiu-xi.herokuapp.com/images/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
+        cc.loader.load({url: `${Constants.imagesUrl}/${cardName}.jpg`, type: "jpeg"}, (err, tex)=>{
             if(err){
                 cc.error(err);
             } else{
@@ -42,7 +42,7 @@ cc.Class({
         // Send WS request
         wsRequests.discardCardRequest(this.cardName);
         // Move card to deck
-        let positionX = this.node.parent.parent.getChildByName('new cards').children[0].getPosition().x + constants.cardWidth;
+        let positionX = this.node.parent.parent.getChildByName('new cards').children[0].getPosition().x + Constants.cardWidth;
         const cb = cc.callFunc(function(target) {
             this.node.parent = deckNode;
             this.node.y = 0;
